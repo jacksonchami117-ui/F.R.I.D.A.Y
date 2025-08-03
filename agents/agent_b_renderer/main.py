@@ -1,0 +1,1 @@
+print('Agent B Renderer Placeholder')
