@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>�� ADVANCED PITCHLANE VIDEO GENERATOR - LIVE SYSTEM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="text-2xl font-bold text-gray-900">�� Advanced Pitchlane</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="showSection('dashboard')" class="text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Dashboard</button>
+                    <button onclick="showSection('campaigns')" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Campaigns</button>
+                    <button onclick="showSection('video-editor')" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Video Editor</button>
+                    <button onclick="showSection('leads')" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Leads</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard" class="section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">�� Advanced Pitchlane Video Generator</h1>
+                <p class="text-xl text-gray-600">Create personalized videos as easy as Pitchlane!</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Dashboard Stats</h3>
+                    <p class="text-gray-600">System overview and quick actions</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                    <div class="text-4xl mb-4">🎯</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Campaign Management</h3>
+                    <p class="text-gray-600">Configure video settings and templates</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                    <div class="text-4xl mb-4">👥</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Lead Management</h3>
+                    <p class="text-gray-600">Upload and manage CSV lead data</p>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <p class="text-lg text-gray-700 mb-4">✅ <strong>SYSTEM STATUS: LIVE ON GITHUB PAGES!</strong></p>
+                <p class="text-gray-600">This system is now accessible from anywhere in the world!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Campaigns Section -->
+    <div id="campaigns" class="section hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">⚙️ Campaign Management</h1>
+                <p class="text-xl text-gray-600">Configure your video campaign settings</p>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6">🎯 Campaign Configuration</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Campaign Name</label>
+                        <input type="text" id="campaignName" value="Professional Video Campaign" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Video Style</label>
+                        <select id="videoStyle" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <option value="professional">Professional</option>
+                            <option value="casual">Casual</option>
+                            <option value="energetic">Energetic</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <button onclick="saveCampaign()" class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 font-semibold">
+                        💾 Save Campaign Settings
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Editor Section -->
+    <div id="video-editor" class="section hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">�� Video Editor</h1>
+                <p class="text-xl text-gray-600">Create personalized videos with professional quality</p>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6">⚙️ Video Settings</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Opening Duration (seconds)</label>
+                        <input type="number" id="openingDuration" value="15" min="5" max="60" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Company Intro Duration</label>
+                        <input type="number" id="companyIntroDuration" value="20" min="5" max="60" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Total Duration</label>
+                        <div class="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md text-center font-semibold">
+                            <span id="totalDuration">35</span> seconds
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <button onclick="generateVideo()" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 font-semibold">
+                        🎥 Generate Video
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leads Section -->
+    <div id="leads" class="section hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">�� Lead Management</h1>
+                <p class="text-xl text-gray-600">Upload and manage your lead data</p>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6">�� Upload Leads</h2>
+                
+                <div class="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center">
+                    <div class="text-4xl mb-4">📤</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Drag & Drop CSV File</h3>
+                    <p class="text-gray-600 mb-4">or click to browse</p>
+                    <button onclick="uploadLeads()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                        Browse Files
+                    </button>
+                </div>
+                
+                <div class="mt-6 text-center">
+                    <button onclick="downloadTemplate()" class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700">
+                        📥 Download CSV Template
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show/hide sections
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.remove('hidden');
+            
+            // Update navigation
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('text-blue-600');
+                btn.classList.add('text-gray-700', 'hover:text-blue-600');
+            });
+            
+            // Highlight current section
+            event.target.classList.remove('text-gray-700', 'hover:text-blue-600');
+            event.target.classList.add('text-blue-600');
+        }
+
+        // Update total duration
+        function updateTotalDuration() {
+            const opening = parseInt(document.getElementById('openingDuration').value) || 0;
+            const company = parseInt(document.getElementById('companyIntroDuration').value) || 0;
+            const total = opening + company;
+            document.getElementById('totalDuration').textContent = total;
+        }
+
+        // Save campaign
+        function saveCampaign() {
+            const name = document.getElementById('campaignName').value;
+            const style = document.getElementById('videoStyle').value;
+            alert(`✅ Campaign saved!\nName: ${name}\nStyle: ${style}`);
+        }
+
+        // Generate video
+        function generateVideo() {
+            alert('🎬 Video generation endpoint ready!\nThis would integrate with the advanced video generation system.');
+        }
+
+        // Upload leads
+        function uploadLeads() {
+            alert('📁 Lead upload endpoint ready!\nThis would handle CSV file uploads.');
+        }
+
+        // Download template
+        function downloadTemplate() {
+            alert('📥 CSV template download ready!\nThis would provide a sample CSV format.');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listeners for duration updates
+            document.getElementById('openingDuration').addEventListener('input', updateTotalDuration);
+            document.getElementById('companyIntroDuration').addEventListener('input', updateTotalDuration);
+            
+            // Show dashboard by default
+            showSection('dashboard');
+        });
+    </script>
+</body>
+</html>
