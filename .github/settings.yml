@@ -1,0 +1,105 @@
+# Repository settings as code
+# This file takes effect when the Settings app is installed and configured
+# https://github.com/apps/settings
+
+repository:
+  # Repository settings
+  name: F.R.I.D.A.Y
+  description: Advanced video generation system - F.R.I.D.A.Y
+  homepage: https://jacksonchami117-ui.github.io/F.R.I.D.A.Y
+  private: false
+  has_issues: true
+  has_projects: true
+  has_wiki: false
+  has_downloads: true
+  default_branch: main
+  allow_squash_merge: true
+  allow_merge_commit: false
+  allow_rebase_merge: false
+  delete_branch_on_merge: true
+  enable_automated_security_fixes: true
+  enable_vulnerability_alerts: true
+
+# Branch protection rules
+branches:
+  - name: main
+    protection:
+      required_status_checks:
+        strict: true
+        contexts:
+          - build
+          - coverage
+          - sonar
+          - trivy
+      enforce_admins: false
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+        dismiss_stale_reviews: true
+        require_code_owner_reviews: false
+        restrict_pushes: false
+      restrictions: null
+      required_signatures: true
+
+# Labels configuration
+labels:
+  # Type labels
+  - name: bug
+    color: 'd73a4a'
+    description: Something isn't working
+  - name: enhancement
+    color: 'a2eeef'
+    description: New feature or request
+  - name: feature
+    color: '0e8a16'
+    description: New feature
+  - name: fix
+    color: 'fbca04'
+    description: Bug fix
+  - name: chore
+    color: 'ededed'
+    description: Maintenance and chores
+  - name: security
+    color: 'b60205'
+    description: Security-related changes
+  
+  # Dependencies
+  - name: dependencies
+    color: '0366d6'
+    description: Dependencies updates
+  - name: python
+    color: '306998'
+    description: Python dependencies
+  - name: javascript
+    color: 'f1e05a'
+    description: JavaScript dependencies
+  
+  # Status labels
+  - name: approved
+    color: '0e8a16'
+    description: Approved for merge
+  - name: ready-to-merge
+    color: '1d76db'
+    description: Ready to be merged
+  - name: automerge
+    color: '5319e7'
+    description: Can be automatically merged
+  
+  # Area labels
+  - name: documentation
+    color: '0075ca'
+    description: Improvements or additions to documentation
+  - name: tests
+    color: 'c2e0c6'
+    description: Test-related changes
+  - name: ci
+    color: 'f9d0c4'
+    description: Continuous integration
+  - name: frontend
+    color: 'ff6b6b'
+    description: Frontend changes
+  - name: backend
+    color: '4ecdc4'
+    description: Backend changes
+  - name: config
+    color: 'ffe66d'
+    description: Configuration changes

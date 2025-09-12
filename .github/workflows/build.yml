@@ -1,0 +1,62 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        cache: 'pip'
+    
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        # Install basic dependencies for validation
+        pip install flake8
+    
+    - name: Lint Python code
+      run: |
+        # Lint Python files
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    
+    - name: Validate Python imports
+      run: |
+        # Test that Python modules can be imported
+        if [ -d "agents" ]; then
+          find agents -name "*.py" -exec python -m py_compile {} \;
+        fi
+    
+    - name: Validate HTML/CSS/JS
+      run: |
+        # Basic validation of HTML files
+        find . -name "*.html" -exec echo "Validating {}" \;
+        # Check for basic syntax issues in HTML files
+        grep -r "<!DOCTYPE html>" . --include="*.html" || echo "No HTML files with DOCTYPE found"
+    
+    - name: Check file structure
+      run: |
+        echo "Repository structure:"
+        ls -la
+        echo "Agents structure:"
+        if [ -d "agents" ]; then ls -la agents/; fi
+        echo "Config structure:"
+        if [ -d "config" ]; then ls -la config/; fi

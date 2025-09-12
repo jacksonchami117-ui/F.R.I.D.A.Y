@@ -1,0 +1,61 @@
+queue_rules:
+  - name: default
+    conditions:
+      - check-success=build
+      - check-success=coverage
+      - check-success=sonar
+      - check-success=trivy
+
+pull_request_rules:
+  # Automatically merge Renovate PRs when CI is green and approved
+  - name: Automatic merge for Renovate PRs
+    conditions:
+      - author=renovate[bot]
+      - check-success=build
+      - check-success=coverage  
+      - check-success=sonar
+      - check-success=trivy
+      - label=approved
+    actions:
+      queue:
+        name: default
+        method: squash
+
+  # Automatic merge for dependency updates with automerge label
+  - name: Automatic merge for dependency updates
+    conditions:
+      - label=dependencies
+      - label=automerge
+      - check-success=build
+      - check-success=coverage
+      - check-success=sonar
+      - check-success=trivy
+      - "#approved-reviews-by>=1"
+    actions:
+      queue:
+        name: default
+        method: squash
+
+  # Add to queue when all checks pass and approved
+  - name: Add to merge queue when ready
+    conditions:
+      - check-success=build
+      - check-success=coverage
+      - check-success=sonar
+      - check-success=trivy
+      - "#approved-reviews-by>=1"
+      - label=ready-to-merge
+    actions:
+      queue:
+        name: default
+        method: squash
+
+  # Example backport rule (commented out)
+  # - name: Backport patches to release branch
+  #   conditions:
+  #     - merged
+  #     - label=backport-to-release
+  #   actions:
+  #     backport:
+  #       branches:
+  #         - release
