@@ -1,0 +1,41 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":timezone(America/New_York)"
+  ],
+  "schedule": [
+    "after 6pm on friday",
+    "before 9am on monday",
+    "every weekend"
+  ],
+  "labels": ["dependencies"],
+  "automerge": true,
+  "automergeType": "pr",
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "automerge": false
+    },
+    {
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["minor"],
+      "groupName": "minor dependencies",
+      "groupSlug": "minor-deps"
+    },
+    {
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["patch"],
+      "groupName": "patch dependencies", 
+      "groupSlug": "patch-deps"
+    }
+  ],
+  "prHourlyLimit": 3,
+  "prConcurrentLimit": 5,
+  "platformAutomerge": true,
+  "platformCommit": true
+}

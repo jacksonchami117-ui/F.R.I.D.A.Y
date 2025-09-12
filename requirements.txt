@@ -1,0 +1,7 @@
+# Basic Python requirements for F.R.I.D.A.Y
+# Add your production dependencies here
+
+# Example dependencies (uncomment as needed):
+# requests>=2.25.0
+# numpy>=1.21.0
+# flask>=2.0.0

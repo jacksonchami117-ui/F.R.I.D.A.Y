@@ -1,0 +1,48 @@
+# Auto-labeling configuration based on file paths
+docs:
+  - '*.md'
+  - 'docs/**/*'
+  - 'README*'
+
+tests:
+  - 'test/**/*'
+  - 'tests/**/*'
+  - '**/*test*'
+  - '**/*.test.*'
+  - '**/test_*'
+
+ci:
+  - '.github/**/*'
+  - '.mergify.yml'
+  - 'codecov.yml'
+  - 'sonar-project.properties'
+
+dependencies:
+  - 'requirements*.txt'
+  - 'package*.json'
+  - 'Pipfile*'
+  - 'poetry.lock'
+  - 'pyproject.toml'
+
+python:
+  - '**/*.py'
+  - 'agents/**/*'
+
+frontend:
+  - '**/*.html'
+  - '**/*.js'
+  - '**/*.css'
+  - 'dist/**/*'
+  - 'index.html'
+
+config:
+  - 'config/**/*'
+  - '*.json'
+  - '*.yml'
+  - '*.yaml'
+  - '*.toml'
+
+security:
+  - 'SECURITY.md'
+  - '.github/workflows/trivy.yml'
+  - '.github/workflows/snyk.yml'
