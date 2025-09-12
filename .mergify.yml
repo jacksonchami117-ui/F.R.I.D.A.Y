@@ -1,0 +1,69 @@
+queue_rules:
+  - name: default
+    conditions:
+      - check-success=build
+      - check-success=coverage
+      - check-success=sonar
+      - check-success=trivy
+
+pull_request_rules:
+  # Auto-merge Renovate PRs after CI passes and approval label is added
+  - name: Automatic merge for Renovate PRs
+    conditions:
+      - author=renovate[bot]
+      - check-success=build
+      - check-success=coverage
+      - check-success=sonar
+      - check-success=trivy
+      - label=approved
+      - "#approved-reviews-by>=1"
+    actions:
+      queue:
+        name: default
+
+  # Auto-merge patch and minor updates from Renovate without manual approval
+  - name: Auto-merge Renovate patch/minor updates
+    conditions:
+      - author=renovate[bot]
+      - check-success=build
+      - check-success=coverage
+      - check-success=sonar
+      - check-success=trivy
+      - title~=^(fix|chore)\(deps\): update .* to v?\d+\.\d+\.\d+$
+    actions:
+      queue:
+        name: default
+
+  # Require manual approval for major version updates
+  - name: Request review for major version updates
+    conditions:
+      - author=renovate[bot]
+      - title~=^(fix|chore)\(deps\): update .* to v?\d+\.0\.0$
+    actions:
+      request_reviews:
+        users:
+          - jacksonchami117-ui
+
+  # Example backport rule (commented out)
+  # - name: Backport patches to release branch
+  #   conditions:
+  #     - merged
+  #     - base=main
+  #     - label=backport-to-release
+  #   actions:
+  #     backport:
+  #       branches:
+  #         - release/v1.x
+
+  # Automatically add approved label for trusted contributors
+  - name: Add approved label for maintainers
+    conditions:
+      - author=jacksonchami117-ui
+      - check-success=build
+      - check-success=coverage
+      - check-success=sonar
+      - check-success=trivy
+    actions:
+      label:
+        add:
+          - approved
