@@ -1,0 +1,47 @@
+documentation:
+  - '**/*.md'
+  - 'docs/**/*'
+
+tests:
+  - 'test/**/*'
+  - 'tests/**/*'
+  - '**/*test*'
+  - '**/*spec*'
+
+ci:
+  - '.github/**/*'
+  - '.mergify.yml'
+  - 'codecov.yml'
+  - 'sonar-project.properties'
+
+dependencies:
+  - 'requirements*.txt'
+  - 'package*.json'
+  - 'yarn.lock'
+  - 'Pipfile*'
+  - '.github/renovate.json'
+
+frontend:
+  - '**/*.html'
+  - '**/*.css'
+  - '**/*.js'
+  - '**/*.jsx'
+  - '**/*.ts'
+  - '**/*.tsx'
+  - 'dist/**/*'
+
+backend:
+  - '**/*.py'
+  - 'agents/**/*'
+
+config:
+  - 'config/**/*'
+  - '**/*.json'
+  - '**/*.yml'
+  - '**/*.yaml'
+  - '**/*.toml'
+
+security:
+  - 'SECURITY.md'
+  - '.github/workflows/trivy.yml'
+  - '.github/workflows/snyk.yml'

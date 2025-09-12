@@ -1,0 +1,41 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "schedule": [
+    "before 6am on weekend"
+  ],
+  "timezone": "UTC",
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "description": "Automerge patch and minor dependency updates on weekends",
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true,
+      "schedule": ["before 6am on weekend"]
+    },
+    {
+      "description": "Group minor dependency updates",
+      "matchUpdateTypes": ["minor"],
+      "groupName": "minor dependencies"
+    },
+    {
+      "description": "Python dependencies",
+      "matchManagers": ["pip_requirements", "pip_setup", "pipenv"],
+      "addLabels": ["python"]
+    },
+    {
+      "description": "JavaScript/Node dependencies", 
+      "matchManagers": ["npm", "yarn"],
+      "addLabels": ["javascript"]
+    }
+  ],
+  "pip_requirements": {
+    "fileMatch": ["(^|/)requirements.*\\.txt$", "(^|/)requirements.*\\.pip$"]
+  },
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "automerge": false
+  }
+}

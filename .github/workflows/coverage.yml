@@ -1,0 +1,57 @@
+name: Coverage
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        # Install test dependencies if they exist
+        if [ -f requirements-test.txt ]; then pip install -r requirements-test.txt; fi
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        # Install coverage and pytest for basic testing
+        pip install coverage pytest
+    
+    - name: Run tests with coverage
+      run: |
+        # Run Python tests if they exist
+        if [ -d "tests" ] || [ -d "test" ]; then
+          coverage run -m pytest
+        else
+          # Create a simple test to ensure the main Python file imports
+          echo "import sys; sys.path.append('agents/agent_b_renderer'); import main; print('Import successful')" > test_imports.py
+          coverage run test_imports.py
+          rm test_imports.py
+        fi
+        coverage xml
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: ./coverage.xml
+        fail_ci_if_error: false
+        verbose: true
